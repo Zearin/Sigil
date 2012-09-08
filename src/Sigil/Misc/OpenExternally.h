@@ -1,6 +1,6 @@
 /************************************************************************
 **
-**  Copyright (C) 2009, 2010, 2011  Strahinja Markovic  <strahinja.markovic@gmail.com>
+**  Copyright (C) 2012  Daniel Pavel <daniel.pavel@gmail.com>
 **
 **  This file is part of Sigil.
 **
@@ -19,36 +19,20 @@
 **
 *************************************************************************/
 
-#include "Misc/Utility.h"
-#include "ResourceObjects/FontResource.h"
+#pragma once
+#ifndef OPENEXTERNALLY_H
+#define OPENEXTERNALLY_H
 
-FontResource::FontResource( const QString &fullfilepath, QObject *parent )
-    : Resource( fullfilepath, parent )
+#include "ResourceObjects/Resource.h"
+
+class OpenExternally
 {
 
-}
+public:
 
+    static bool mayOpen( const Resource::ResourceType type );
 
-Resource::ResourceType FontResource::Type() const
-{
-    return Resource::FontResourceType;
-}
+    static bool openFile( const QString& filePath, const QString& application );
+};
 
-
-QString FontResource::GetObfuscationAlgorithm() const
-{
-    return m_ObfuscationAlgorithm;
-}
-
-
-void FontResource::SetObfuscationAlgorithm( const QString &algorithm )
-{
-    m_ObfuscationAlgorithm = algorithm;
-}
-
-bool FontResource::LoadFromDisk()
-{
-    emit Modified();
-
-    return true;
-}
+#endif // OPENEXTERNALLY_H
