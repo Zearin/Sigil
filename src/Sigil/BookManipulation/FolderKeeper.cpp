@@ -409,17 +409,25 @@ void FolderKeeper::ResourceRenamed( const Resource& resource, const QString& old
 {
     m_OPF->ResourceRenamed( resource, old_full_path );
 
-    // by the time this SLOT is called, the file has already been renamed
-    // and the QFileSystemWatcher already removed the old file name from its list of watched files
+    // By the time this SLOT is called, the file has already been renamed
+    // and the QFileSystemWatcher already removed the old file name from its list of watched files.
     WatchResourceFile( resource, true );
 }
 
 void FolderKeeper::ResourceFileChanged( const QString &path ) const
 {
-    // the signal is also received after resource files are removed / renamed
-    // but it can be safely ignored because QFileSystemWatcher automatically stops watching them
+    // The signal is also received after resource files are removed / renamed,
+    // but it can be safely ignored because QFileSystemWatcher automatically stops watching them.
     if ( QFile::exists(path) )
     {
+        // Some editors write the updated contents to a temporary file
+        // and then atomically move it over the watched file.
+        // In this case QFileSystemWatcher loses track of the file, so we have to add it again.
+        if ( !m_FSWatcher->files().contains(path) )
+        {
+            m_FSWatcher->addPath( path );
+        }
+
         foreach( Resource *resource, m_Resources.values() )
         {
             if ( resource->GetFullPath() == path ) {
@@ -436,13 +444,10 @@ void FolderKeeper::WatchResourceFile( const Resource& resource, bool file_rename
     {
         m_FSWatcher->addPath( resource.GetFullPath() );
 
-        if ( !file_renamed )
-        {
-            // when the file is changed externally, mark the owning Book as modified
-            // parent() is the Book object
-            connect( &resource,  SIGNAL( ResourceUpdatedFromDisk() ),
-                     parent(),   SLOT( SetModified() ), Qt::DirectConnection );
-        }
+        // when the file is changed externally, mark the owning Book as modified
+        // parent() is the Book object
+        connect( &resource,  SIGNAL( ResourceUpdatedFromDisk() ),
+                 parent(),   SLOT( SetModified() ), Qt::UniqueConnection );
     }
 }
 
