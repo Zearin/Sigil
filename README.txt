@@ -1,32 +1,36 @@
-Sigil is a free, open source, multi-platform WYSIWYG ebook editor.
-It is designed to edit books in ePub format. The version of the package
-can be found in the ChangeLog.txt file.
+Sigil is a free, open source, multi-platform WYSIWYG eBook editor.
+It's designed to edit books in ePub format. 
 
-It's website is located here: http://code.google.com/p/sigil/
+The package version can be found in the ChangeLog.txt file.
 
-The src directory contains all of the source code. It has
-a few subdirectories:
-    src/BoostParts - source code of various parts of the Boost C++ 
-                     Libraries that Sigil uses.
-    src/FlightCrew - source code for the FlightCrew EPUB validation
-                     Library.
-    src/Sigil - source code for the Sigil application.
-    src/tidyLib - source code for HTML Tidy, an HTML cleaner.
-    src/Xerces - source code for Xerces-C++, XML manipulation Library.
-    src/XercesExtensions - source code for helper classes that shuffle
-                     data between into and out of formats supported and
-                     required by Xerces.
-    src/minizip - source code for minizip, a zipping library.
-    src/zlib - source code for the zlib compression library.
-    src/hunspell - spell checking library.
-    src/pcre - regular epression library.
 
-The installer directory contains the files needed to produce
-a binary installer for Windows.
+Sigil on Google Code:
+    http://code.google.com/p/sigil/
+
+Sigil on GitHub:
+    https://github.com/pwr/Sigil/
+
+
+The src/ directory contains all source code. It has a few subdirectories:
+
+    src/BoostParts - Contains the parts of the Boost C++ libraries 
+                     that Sigil uses.
+    src/FlightCrew - Contains the FlightCrew EPUB validation library.
+    src/Sigil - Sigil's source code.
+    src/tidyLib - HTML Tidy (an HTML cleaner).
+    src/Xerces - Xerces-C++, an XML manipulation Library.
+    src/XercesExtensions - Helper classes that shuffle data between 
+                            input and output formats for Xerces.
+    src/minizip - The minizip a zipping library.
+    src/zlib - The zlib compression library.
+    src/hunspell - Spell checking library.
+    src/pcre - Regular expression library.
+    src/installer - Contains files to create a binary installer for 
+                    Windows.
 
 The INSTALL.txt file contains information on building Sigil from
-source code (and installing it on Linux machines).
+source code. (It also contains instructions for installation on 
+Linux.)
 
-The GPLv3 license under which Sigil is released is located in
-the file called COPYING.txt.
+Sigil is released under the GPLv3 license, and is described in COPYING.txt.
 
